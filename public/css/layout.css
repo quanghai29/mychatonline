@@ -1,0 +1,287 @@
+body {
+  padding: 0;
+  font-size: 18px; 
+}
+
+
+.container-main{
+
+}
+
+/****************************************/
+/*Container-info*/
+.info-chat{
+  width: 27%;
+  float: left;
+  display: none;
+  border-style: ridge;
+  border-width: 1px;
+}
+
+.title-info{
+  padding: 20px;
+  padding-bottom: 40px;
+  border-style: ridge;
+  border-width: 1px;
+  margin:0;
+}
+
+.detail-info{
+  padding: 20px;
+  font-size: 22px;
+  border-style: ridge;
+  border-width: 1px;
+}
+.detail-info:hover{
+  background-color: #ecf0f1;
+}
+
+#createGroup:hover{
+  cursor: cell;
+}
+
+#addMember:hover{
+  cursor: grab;
+}
+
+
+
+/****************************************/
+/*Container left*/
+.container-left {
+  display: none;
+  float: left;
+  width: 43%;
+  border-style: ridge;
+  border-width: 1px;
+}
+
+/*title*/
+.title-left {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  box-shadow: 0px 2px Silver;
+}
+
+.chat-name {
+  font-size: 20px;
+  display: flex;
+}
+
+.chat-extend {
+}
+
+/*content*/
+.content-chat {
+  scroll-behavior: smooth;
+  overflow: auto;
+  height: 450px;
+  padding: 20px;
+  /*background-color: #dcdde1;*/
+  background-image: linear-gradient(180deg,#a5b1c2 30%,#a5b1c2 20%,#d1d8e0 50%);
+  transform: scale(1,1);
+}
+.chat {
+  border-radius: 20px;
+  background-color:#c7ecee;
+  display: table;
+  padding: 10px;
+  font-weight: 500;
+  margin-top: 10px;
+  color:#3d3d3d;
+}
+
+
+/*confirgue scroll*/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #b2bec3;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #636e72;
+}
+
+/*tool chat*/
+.tool-chat {
+  width: 100%;
+  padding-left: 5px;
+  padding-top: 25px;
+  padding-bottom: 10px;
+  
+}
+.send-message {
+  background-color: #d1cebd;
+  margin: 2px 15px;
+  width: 70%;
+  height: auto;
+  border-radius: 20px;
+  padding: 15px;
+  font-size: 19px;
+}
+
+/****************************************/
+/*Container-demo*/
+.container-demo {
+  width: 70%;
+  float: left;
+}
+
+.title-demo {
+  color: #c0392b;
+  margin: 20px;
+  padding: 20px;
+  position: relative;
+  left: 20%;
+}
+
+.describe-demo {
+  font-weight: 400;
+  font-size: 20px;
+  position: relative;
+  left: 30%;
+}
+
+.image_demo {
+  width: 70%;
+  height: auto;
+  margin-left: 90px;
+}
+
+/***************************************/
+/*Container-right*/
+.container-right {
+  float: left;
+  width: 30%;
+  border-style: ridge;
+  border-width: 1px;
+}
+
+.title-right {
+  display: flex;
+  padding: 15px;
+  border-style: ridge;
+  border-width: 1px;
+  padding-bottom: 15px;
+}
+
+.my-name{
+  font-size:22px;
+  padding: 10px;
+}
+
+.chat-extend{
+  margin-left: auto;
+  margin-right: 0;
+  padding: 10px;
+}
+
+#searchName {
+  border: none;
+  border-radius: 20px;
+  width: 90%;
+  margin: 20px;
+  height: 50px;
+  background-color: #ecf0f1;
+  padding: 20px;
+}
+
+.room-chat {
+  width: 95%;
+  height: 80px;
+  border-radius: 15px;
+  margin: 0px 10px;
+  padding: 15px;
+  display: flex;
+  position: relative;
+}
+
+.active{
+  background-color: #e1f2fb;
+}
+.room-chat:hover{
+  background-color: #ecf0f1;
+}
+
+
+
+.anhDaiDien {
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+}
+
+.name-chat {
+  font-size: 22px;
+  padding: 7px;
+  margin-left: 2px;
+}
+
+.new-mess {
+  position: absolute;
+  right: 10px;
+  margin: 10px;
+  padding-right: 5px;
+  display: none;
+}
+
+
+/***************************************/
+/*Container-avartar*/
+.container-avartar{
+  display: none;
+  position: absolute;
+  width: 50%;
+  height: auto;
+  background-color: white;
+  top:2%;
+  left: 25%;
+  box-shadow: 2px 2px 5px 5px #353b48;
+  margin-bottom: 30px;
+}
+
+.moment-img{
+  position: relative;
+  left: 20%;
+  margin-bottom: 50px; 
+}
+#momentAvartar{
+  width: 60%;
+  height: auto;
+}
+
+.update-image{
+  background-color: #95afc0;
+  color:white;
+  position: relative;
+  margin: 5px;
+  margin-bottom: 50px;
+  text-align: center;
+  padding: 50px 0px;
+  border: 3px dotted black;
+}
+
+#btnSubmit{
+  position: relative;
+  left: 90%;
+  margin-bottom: 5px;
+}
+
+#closeChangeAvartar{
+  position: relative;
+  left: 95%;
+}

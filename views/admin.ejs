@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!--Set up common-->
+     <%- include('partials/head.ejs') -%>
+
+     <!--Set up this file-->
+    <title>admin Chat Online</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/client.js"></script>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="list-member">
+        <h1 class="title-left">Thành Viên</h1>
+        <% if (users) { %>
+            <% users.forEach(function(users) { %>
+                <h2 class="name-member">
+                    <i class="fas fa-circle fa-sm" style="color: green;"></i>
+                    <%= users.username %>    
+                </h2>
+            <% }); %>
+        <% } else { %>
+            <h4>Không có thành viên nào</h4>
+        <% } %>
+       
+    </div>
+</body>
+</html>

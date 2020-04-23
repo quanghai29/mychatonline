@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Set up common-->
+    <%- include('partials/head.ejs') -%>
+
+    <!--set up only this file-->
+    <title>Login Form</title>
+    <link rel="stylesheet" href="/css/register.css">
+    <script src="/js/login.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="intro">
+    
+        </div>
+        <div class="signUP">
+            <h1 class="labelSignUp">Login with FunnyChat</h1>
+            <form onsubmit="return validate()" method="POST">
+                <label for="Fname">UserName</label><br>
+                <input type="text" name="fname" id="txtFname" placeholder="quanghai"><br>
+                <label for="fPassword">Password</label><br>
+                <input type="text" name="fPassword" id="fPassword" placeholder="12345"><br>
+                <button class="btnSignUp" type="submit">Login</button><span>    or     </span>
+                <a href="http://"> sign up for free</a>
+            </form>
+        </div>
+       
+    </div>
+</body>
+</html>

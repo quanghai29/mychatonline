@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--Set up common-->
+    <%- include('partials/head.ejs') -%>
+
+    <!--set up only this file-->
+    <title>Chat Online</title>
+    <link rel="stylesheet" href="/css/layout.css">
+</head>
+
+<body>
+    <div class="container-main">
+        <div class="info-chat">
+            <h4 class="title-info">Thông tin cuộc trò chuyện</h4>
+            <div class="info-main">
+                <div class="detail-info" id="createGroup"><i class="fas fa-users" style="margin-right: 15px"></i>Tạo nhóm trò chuyện</div>
+                <div class="detail-info" id="addMember"><i class="fas fa-user-plus" style="margin-right: 15px"></i>Thêm vào nhóm</div>
+            </div>
+        </div>
+        <div class="container-left">
+            <div class="title-left">
+                <div class="chat-name">
+                    <div>
+                        <img src="/img/gai4.jpg" alt="ảnh đại diện" class="anhDaiDien">
+                    </div>
+                    <div class="name-chat">tên chat</div>
+                </div>
+                <div class="chat-extend">
+                    <i class="fas fa-video" style="color:#1abc9c"></i>
+                    <i class="fas fa-phone-alt" style="color:#1abc9c"></i>
+                    <i class="fas fa-info-circle" style="color:#1abc9c"></i>
+                </div>
+            </div>
+            <div class="content-chat">
+            </div>
+            <div class="tool-chat">
+                <i class="fas fa-plus fa-2x" style="color:#27ae60"></i>
+                <input class="send-message"></input>
+                <i class="fas fa-heart fa-2x" style="color:#27ae60"></i>
+            </div>
+        </div>
+        <div class="container-demo">
+            <h1 class="title-demo">Chào mừng đến với FunnyChat</h1>
+            <p class="describe-demo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Khám phá tiện ích của chúng tôi <br> để có những trải
+                nghiệm tốt nhất khi lướt web</p>
+            <img src="/img/internet-1028794_1920.jpg" alt="connetion" class="image_demo">
+        </div>
+        <div class="container-right">
+            <div class="title-right">
+                <div class="img-chat" >
+                    <img src="/img/avartar.png" alt="anhnen" class="anhDaiDien" id="myAvatar">
+                </div>
+                <div class="my-name">haimtp</div>
+                <div class="chat-extend">
+                    <button type="text" id="changeavartar">change avartar</button>
+                </div>
+            </div>
+            <input type="search" name="searchNametxt" id="searchName" placeholder="search some thing ......">
+            <div class="list-chat">
+                <% if (listuser) { %>
+                <% listuser.forEach(function(user) { %>
+                <div class="room-chat">
+                    <div class="img-chat">
+                        <img src="/img/avartar.png" alt="anhnen" class="anhDaiDien">
+                    </div>
+                    <div class="name-chat"><%= user.username %></div>
+                    <div class="new-mess" id="<%- user.username %>">
+                        <i class="fas fa-circle" style="color:forestgreen"></i>
+                    </div>
+                </div>
+                <% }); %>
+                <% } else { %>
+                <h4>Không có thành viên nào</h4>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+    <!--lưu avartar-->
+    <div class="container-avartar">
+        <button type="text"  id="closeChangeAvartar"> <i class="fas fa-2x fa-times-circle"></i></button>
+       
+        <form action="/user/<%= idUser %>/uploadimage" onsubmit="return upload_image()" method="POST" enctype="multipart/form-data">
+            <div class="update-image">
+                <input type="file" id="newAvartar" name="newAvartar" accept="image/png,image/jpeg">
+            </div>    
+        <div class="moment-img">
+            <img src="/img/avartar.png" alt="anhnen" id="momentAvartar">
+        </div>
+        <button type="submit" id="btnSubmit">Save</button>
+        </form>
+    </div>
+    <!---->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io('http://localhost:3000');
+        const user = JSON.parse('<%-data %>'); //info user
+
+        
+        //Thay đổi người chat
+        $(".room-chat").on('click', function () {
+            //Hiện khung chat
+            $(".container-demo").hide();
+            $(".container-left").show();
+            $(".info-chat").show();
+
+            //Chuyển màu
+            $(".room-chat").removeClass("active");
+            $(this).addClass("active");
+           
+            //Chuyển user đang chat
+            const friend = $(this).children(".name-chat").html();
+            $(".chat-name > .name-chat").html(friend);
+
+            //Bỏ dấu thông báo tin mới
+            var id = "#" + friend;
+            $(id).hide();
+
+            //Load tin
+            socket.emit("load-mess-private", friend);
+
+            //Load ra 
+            socket.on("list-message-private", (rows) => {
+                $(".content-chat").html("");
+
+                var clchat;//thêm một class để phân biệt người chat
+                rows.forEach((data, index) => {
+                   clchat=data.fromUser + "chat";
+                   $(".content-chat").append(`<div class="chat ${clchat}">${data.mess}</div>`);
+                });
+
+                displayMOMyChat( "." + user.username + "chat");
+                scrollListChat(".content-chat");
+            })
+        })
+
+
+
+        /*Message Private*/
+        //Send data private
+        $(".send-message").keypress((event) => {
+
+            if (event.which == 13) {
+                var msg = $(".send-message").val();//nội dung nhắn
+                var clchat = user.username + "chat";//người đang nhắn
+
+                //hiện tin nhắn trên khung chat
+                $(".content-chat").append(`<div class="chat ${clchat}">${msg}</div>`);
+                displayMOMyChat("." + clchat);
+                scrollListChat(".content-chat");
+                
+                //xóa val trên thanh nhập
+                $(".send-message").val("");
+                
+                //alert($(".send-message").val());
+                socket.emit("send-message-private",
+                    {
+                        to: $(".chat-name > .name-chat").html(),
+                        msg: msg
+                    }
+                );
+
+            }
+        })
+
+        //receive-message-private
+        socket.on("receive-message-private", (data) => {
+
+            //Kiểm tra nếu đang ở trong ô chat với người hiện tại 
+            // cập nhật tin nhắn trên khung chat
+            //ngược lại thông báo có tin nhăn mới
+
+            var nameChatCurrent = $(".chat-name > .name-chat").html();
+            if (nameChatCurrent == data.from) {
+                $(".content-chat").append(`<div class="chat ${data.from +"chat"}">${data.msg}</div>`);;
+                scrollListChat(".content-chat");
+            }
+            else {
+                var id = "#" + data.from;
+                $(id).show();
+            }
+        })
+
+
+        $(document).ready(function () {
+            //send myname
+            socket.emit("send-username", user.username);
+            //change name 
+            $('.my-name').html(user.username);
+        });
+
+
+        //Upload your Image
+        $('#changeavartar').click(()=>{
+            console.log("change avartar");
+            $('.container-avartar').show();
+            $('.container-main').css({"opacity":"0.7", "height":"auto"});
+            
+            if($('#closeChangeAvartar').data('click')){
+                $('.container-avartar').hide();
+                $('.container-main').css({"opacity":"1", "height":"auto"});
+            }
+        })
+
+        $('#newAvartar').change((e)=>{
+            $('#momentAvartar').attr("src",URL.createObjectURL(e.target.files[0]))
+        })
+
+
+
+        function upload_image(){
+            return true;
+        }
+        //Function Support//****************************************************************/
+        //scroll list chat
+        function scrollListChat(classListChat){
+            var indexLast =  $(classListChat).children().length;
+            if(indexLast !=0 )
+            {
+              $(classListChat).children()[indexLast - 1].scrollIntoView();
+            }
+        }
+
+        //display message of my chat
+        function displayMOMyChat(clmechat){
+            console.log(clmechat);
+            //di chuyển sang phải
+            $(clmechat).css({"margin-left":"auto", "margin-right":"0","margin-top":"10px","background-color":"#16a085","color":"#ecf0f1"});
+            //đổi màu
+        }
+
+    </script>
+</body>
+
+</html>

@@ -83,4 +83,7 @@ app.use((err,req,res,next)=>{
     res.status(500).send('View error on console');
 })
 
-server.listen(3000);
+const PORT = 3000;
+server.listen(process.env.PORT || PORT,()=>{
+    console.log("Server is running at https://mychatonline.herokuapp.com/");
+});

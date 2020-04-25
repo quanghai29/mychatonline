@@ -30,7 +30,7 @@ io.on("connection",(socket)=>{
     //recevie username
     socket.on("send-username",async (username)=>{
         //thêm dữ liệu socketID
-        const result = await userModel.patch({username:username ,socketID:socket.id })
+        const result = await userModel.patch({socketID:socket.id },{username: username});
         socket.username=username;
     })
 

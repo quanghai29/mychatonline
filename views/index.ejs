@@ -23,7 +23,7 @@
             <div class="title-left">
                 <div class="chat-name">
                     <div>
-                        <img src="/img/gai4.jpg" alt="ảnh đại diện" class="anhDaiDien">
+                        <img src="/img/gai4.jpg" alt="ảnh đại diện" class="anhDaiDien" id="imgfriend">
                     </div>
                     <div class="name-chat">tên chat</div>
                 </div>
@@ -63,7 +63,7 @@
                 <% listuser.forEach(function(user) { %>
                 <div class="room-chat">
                     <div class="img-chat">
-                        <img src="/img/avartar.png" alt="anhnen" class="anhDaiDien">
+                        <img  alt="anhnen" class="anhDaiDien" src="<%-user.avartar%>">
                     </div>
                     <div class="name-chat"><%= user.username %></div>
                     <div class="new-mess" id="<%- user.username %>">
@@ -112,7 +112,10 @@
            
             //Chuyển user đang chat
             const friend = $(this).children(".name-chat").html();
+            const imgfriend = $(this).children(".img-chat").children().attr('src');
             $(".chat-name > .name-chat").html(friend);
+            $("#imgfriend").attr('src',imgfriend);
+            
 
             //Bỏ dấu thông báo tin mới
             var id = "#" + friend;
@@ -171,7 +174,6 @@
             //Kiểm tra nếu đang ở trong ô chat với người hiện tại 
             // cập nhật tin nhắn trên khung chat
             //ngược lại thông báo có tin nhăn mới
-
             var nameChatCurrent = $(".chat-name > .name-chat").html();
             if (nameChatCurrent == data.from) {
                 $(".content-chat").append(`<div class="chat ${data.from +"chat"}">${data.msg}</div>`);;
@@ -189,6 +191,7 @@
             socket.emit("send-username", user.username);
             //change name 
             $('.my-name').html(user.username);
+            $('#myAvatar').attr('src',user.avartar);
         });
 
 

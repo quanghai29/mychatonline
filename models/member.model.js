@@ -1,7 +1,7 @@
 const db=require('../utils/db');
 
 module.exports={
-    all:()=>db.load('select username,socketID from member'),
+    all:()=>db.load('select username,socketID,avartar from member'),
     add: entity => db.add('member',entity),
     SelectUser: (username)=>db.selectCondition('member',{username: username}),
     SelectId:(id)=> db.selectCondition('member',{id:id}),

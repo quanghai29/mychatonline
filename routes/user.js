@@ -14,7 +14,8 @@ router.post('/register',async (req,res)=>{
     const enity =
     {
         username: req.body.fname,
-        password: hash_password
+        password: hash_password,
+        avartar: `https://res.cloudinary.com/dw1daewzm/image/upload/v1587690581/avartar_onn4uh.png`
     }
     try {
         const row= await userModel.add(enity);

@@ -57,6 +57,10 @@ label{
     box-shadow: none;
     background-color:#eb2f06;
     color: white;
-    margin:12px;
+    margin:18px;
     font-size: 19px;
+}
+
+#fPassword{
+    margin-left: 20px;
 }

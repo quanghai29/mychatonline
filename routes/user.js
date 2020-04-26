@@ -60,7 +60,7 @@ router.get('/:id',async (req,res)=>{
     });
 })
 
-router.post('/:id/uploadimage',uploadMulter.single('avatar'),(req,res)=>{
+router.post('/:id/uploadimage',(req,res)=>{
     console.log(req.files);
     cloudinary.uploader.upload(req.files.newAvartar.tempFilePath,async function(error, result) {
         if(error){
@@ -71,7 +71,7 @@ router.post('/:id/uploadimage',uploadMulter.single('avatar'),(req,res)=>{
             //cập nhật ảnh vào db
             const rows = await userModel.patch({avartar: result.url},{id: req.params.id});
             console.log(rows);
-            res.end('ok');
+            res.redirect(`/user/${req.params.id}`);
         }
     });
 })

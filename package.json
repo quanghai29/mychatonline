@@ -15,7 +15,7 @@
     "express-async-errors": "^3.1.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "md5": "^2.2.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",

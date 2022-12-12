@@ -11,7 +11,7 @@
     "body-parser": "^1.19.0",
     "cloudinary": "^1.21.0",
     "ejs": "^3.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "md5": "^2.2.1",
